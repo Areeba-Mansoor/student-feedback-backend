@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: process.env.CLIENT_URL || "http://localhost:5173",
     credentials: true,
   })
 );
@@ -32,6 +32,7 @@ app.use("/api/feedback", feedbackRoutes);
 app.use("/api/user", userRoutes);
 
 const PORT = process.env.PORT || 5000;
+
 
 if (process.env.NODE_ENV !== "production") {
   app.listen(PORT, () => {
