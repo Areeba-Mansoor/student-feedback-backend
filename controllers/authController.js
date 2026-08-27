@@ -75,10 +75,12 @@ export const login = async (req, res) => {
 };
 
 export const logout = (req, res) => {
+  const isProd = !!process.env.VERCEL;
+
   res.cookie("token", "", {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+    secure: isProd,
+    sameSite: isProd ? "none" : "strict",
     maxAge: 0,
   });
   res.status(200).json({ message: "Logged out successfully" });
